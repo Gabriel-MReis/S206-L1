@@ -39,6 +39,24 @@ describe('Criando cenário de teste para o site globalsqa', ()=> {
 
   })
 
+  it('Caso de teste: Realizando login com falha (usuário inexistente)', () => {
+
+    cy.visit('https://globalsqa.com/angularJs-protractor/registration-login-example/#/login')
+    cy.get('#username').type('user1')
+    cy.get('#password').type('user1password')
+    cy.get('.btn-primary').click()
+    cy.get('.ng-binding').should('have.text', 'Username or password is incorrect')
+ 
+   })
+
+   it('Caso de teste: Realizando logout com sucesso', () => {
+
+    fazLogin()
+    cy.get('.btn').click()
+    cy.get('h2').should('have.text', 'Login')
+ 
+   })
+
   it('Caso de teste: Deletando um usuário com sucesso', () => {
 
     let info = criarUsuario()
@@ -72,4 +90,13 @@ function criarUsuario(){
   cy.get('.ng-binding').should('contain.text', 'Registration successful')
 
   return userInfo
+}
+
+function fazLogin(){
+
+  let info = criarUsuario()
+  cy.get('#username').type(info[0])
+  cy.get('#password').type(info[1])
+  cy.get('.btn-primary').click()
+  cy.get('h1.ng-binding').should('contain.text', info[0])
 }
