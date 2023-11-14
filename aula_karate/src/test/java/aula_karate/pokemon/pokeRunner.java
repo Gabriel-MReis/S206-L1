@@ -6,7 +6,7 @@ public class pokeRunner {
     
     @Karate.Test
     Karate testPokemon() {
-        return Karate.run("pokemon").relativeTo(getClass());
+        return Karate.run("pokemon_atividade").relativeTo(getClass());
     }
 
 }
